@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1057256094102",
+    "project_id": "firsthighstepper",
+    "storage_bucket": "firsthighstepper.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057256094102:android:4f44055989979a59b4c5b7",
+        "android_client_info": {
+          "package_name": "com.hfad.firebaselogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057256094102-qs7h294kg90af6ettv34hb1c5c04v9tp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt6-E9_17nFWU_jAMobY9XgS0vEFseVJQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057256094102-qs7h294kg90af6ettv34hb1c5c04v9tp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
