@@ -11,9 +11,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.hfad.firebaselogin.R
 import kotlinx.android.synthetic.main.dialog_process.*
 
+//Other Activities will inherit from BaseActivity, thus inheriting the functionality of features
+//like the Progress Bar and the Snack Bar
 open class BaseActivity : AppCompatActivity() {
     private var doubleBackToExitPressedOnce = false
 
+    //A Dialog is a small window that prompts the user to make a decision or enter additional info
+    //https://developer.android.com/guide/topics/ui/dialogs
     private lateinit var mProgressDiaglog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {

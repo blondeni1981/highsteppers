@@ -20,14 +20,16 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
+        //Create an object of FirebaseAuth Class
+        //https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseAuth
         auth = FirebaseAuth.getInstance()
 
+        //Removes Top Menu
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-
+        //Creating a listener for a button, execute this function when user clicks
         btnSignIn.setOnClickListener {
             registerUser()
         }
@@ -35,31 +37,31 @@ class LoginActivity : BaseActivity() {
 
     fun userLoginSuccess(user:User){
         hideProgressDialog()
+        //move this activity and the screen to MainActivity
         startActivity(Intent(this, MainActivity::class.java))
+        //finish will prevent the user from being able to navigating back to this page
         finish()
        // Toast.makeText(this,"You have successfully logged in", Toast.LENGTH_LONG)
     }
 
     private fun registerUser(){
+        //Get the text from the TextValues that the user has inputted, by their ID's and convert it
+        //to a variable
+        //The trim function eliminates any spaces/white space after their last character
         val email: String = textUsername.text.toString().trim {it <= ' '}
         val password: String = textPassword.text.toString().trim {it <= ' '}
 
+        //If the user has typed something in both fields, true
         if(validateForm(email, password)){
             showProgressDialog(resources.getString(R.string.please_wait))
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     hideProgressDialog()
                     if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
+                        //Creates a message in the Logcat that you can find, breadcrumbs
                         Log.d("Sign in", "signInWithEmail:success")
-//                        val firebaseUser : FirebaseUser =  task.result!!.user!!
-//                        val registeredEmail = firebaseUser.email!!
-//                        val user=User(firebaseUser.uid,email,registeredEmail)
-                        val user = auth.currentUser
-                        startActivity(Intent(this, MainActivity::class.java))
-                        //FirestoreClass().signInUser(this)
-
-                        //startActivity(Intent(this,MainActivity::class.java))
+                        // Successful login, use call method in Firestore and pass the activity
+                        FirestoreClass().signInUser(this)
                     } else {
                         // If sign in fails, display a message to the user.
 
@@ -68,14 +70,10 @@ class LoginActivity : BaseActivity() {
 
                     }
                 }
-//            Toast.makeText(
-//                this@LoginActivity,
-//                "Valid Characters Entered",
-//                Toast.LENGTH_SHORT
-//            ).show()
+
         }
     }
-
+    //TextUtils.isEmpty returns a Boolean depending on whether a string is null/0-length
     private fun validateForm(email: String, password: String):Boolean{
         return when {
             TextUtils.isEmpty(email)->{

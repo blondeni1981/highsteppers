@@ -17,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
 
         )
-
+        //Function gives the splash screen activity for 3.5 seconds, passing the activity to Intro
         Handler().postDelayed({
             startActivity(Intent(this, IntroActivity::class.java))
             //finish does not let a user go back to the previous screen
