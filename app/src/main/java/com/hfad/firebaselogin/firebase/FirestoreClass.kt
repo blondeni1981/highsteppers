@@ -5,9 +5,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.hfad.firebaselogin.activities.LoginActivity
+import com.hfad.firebaselogin.activities.MainActivity
 import com.hfad.firebaselogin.activities.SignUpActivity
 import com.hfad.firebaselogin.models.User
 import com.hfad.firebaselogin.utils.Constants
+import kotlin.jvm.internal.Intrinsics
 
 //FireStore class instantiates our Database object so we can define functions that save our data to
 //Firestore Cloud
@@ -49,5 +51,26 @@ class FirestoreClass {
                     Log.e("SignInUser", "Error Writing Document",e)
                 }
                 }
+
+    fun getOneUser(activity: MainActivity){
+        mFireStore.collection(Constants.USERS)
+                .document(getCurrentUserID())
+                .get()
+                .addOnSuccessListener { document ->
+                    val loggedInUser = document.toObject(User::class.java)
+                    if(document != null){
+                        Log.d("Found It", "Document Data: ${document.data}")
+
+                    }else{
+                        Log.d("Didn't get it","Failed to get document")
+                    }
+
+                }
+                .addOnFailureListener{exception ->
+                    Log.d("Failed", "get failed with a ",exception)
+                }
+
+
+    }
 
 }

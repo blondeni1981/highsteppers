@@ -54,6 +54,7 @@ class LoginActivity : BaseActivity() {
         //If the user has typed something in both fields, true
         if(validateForm(email, password)){
             showProgressDialog(resources.getString(R.string.please_wait))
+            //Signing
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     hideProgressDialog()
