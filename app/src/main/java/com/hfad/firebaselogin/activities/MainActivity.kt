@@ -7,7 +7,9 @@ import android.provider.SyncStateContract
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.api.Distribution
 import com.google.firebase.auth.FirebaseAuth
@@ -30,7 +32,7 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity() {
     val db = Firebase.firestore
     var CollectionReference = db.collection(Constants.USERS)
-    private lateinit var someHolder:String
+    private lateinit var someHolder: String
     private lateinit var auth: FirebaseAuth
     val a = FirebaseAuth.getInstance().currentUser!!.uid
     var myWalks = DisplayWalks()
@@ -65,6 +67,22 @@ class MainActivity : AppCompatActivity() {
         buttonDisplay.setOnClickListener {
             DisplayWalks()
         }
+
+        //Not moving objects, returning false
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                var deleted = adapter.removeItem(viewHolder)
+                Log.d("Walk Deleted", "$deleted")
+                deleteWalk(deleted)
+            }
+
+        }
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 //        recyclerView.apply {
 //            //DisplayWalks()
 //            layoutManager = LinearLayoutManager(this@MainActivity)
@@ -79,40 +97,46 @@ class MainActivity : AppCompatActivity() {
 
     private fun partItemClicked(partItem: Walk) {
         Toast.makeText(this, "Clicked, ${partItem}", Toast.LENGTH_LONG).show()
-
+        var filterID = myWalks.filter { s -> s.WalkID == partItem.WalkID }
+        Toast.makeText(this, "Found Walk ID $filterID", Toast.LENGTH_LONG).show()
     }
 
     private fun addWalk() {
-        //val a = FirebaseAuth.getInstance().currentUser!!.uid
 
         var newWalkTwo = Walk()
         newWalkTwo.WalkName = tvWalkName.text.toString()
         newWalkTwo.WalkLocation = tvWalkLocation.text.toString()
         newWalkTwo.WalkDistance = tvWalkDistance.text.toString()
+        //Arbitrary WalkID, going to change it anyway with UpdateWalkID, match the field with the
+        //DocumentID
         newWalkTwo.WalkID = "a"
+        //Add the Walk to the ArrayList in the first position
         myWalks.add(0, newWalkTwo)
         adapter.notifyItemInserted(0)
 
+        //Add the Walk to FireStore
+        CollectionReference.document(a)
+                .collection("Neil Walks").add(newWalkTwo)
+                .addOnSuccessListener { b ->
+                    if (b != null) {
+                        //Getting the newly created DocID back, storing it in a temp variable
+                        someHolder = b.id
+                        //Rename the WalkID Field to the DocumentID
+                        UpdateWalkId(someHolder)
+                        Log.d("GettingId", someHolder)
 
-       CollectionReference.document(a)
-               .collection("Neil Walks").add(newWalkTwo)
-               .addOnSuccessListener { b ->
-                   if (b != null) {
 
-                       //newWalkTwo.WalkID= b.id.toString()
-                           someHolder=b.id
-                       UpdateWalkId(someHolder)
-                       Log.d("GettingId", someHolder)
-
-                   }
-               }.addOnFailureListener { e ->
-                   Log.e("No ID", "Error Writing Document", e)
-               }
-
+                    }
+                }.addOnFailureListener { e ->
+                    Log.e("No ID", "Error Writing Document", e)
+                }
 
 
     }
-    private fun UpdateWalkId(id:String) {
+
+    //Renaming WalkID to match the FireStore Document ID, which makes it much easier to
+    //modify or delete walks later.
+    private fun UpdateWalkId(id: String) {
         CollectionReference.document(a)
                 .collection("Neil Walks")
                 .document((id)).update("walkID", id)
@@ -123,8 +147,10 @@ class MainActivity : AppCompatActivity() {
                 }
     }
 
-    private fun deleteWalk() {
-
+    private fun deleteWalk(deletedWalkID: String) {
+        CollectionReference.document(a)
+                .collection("Neil Walks")
+                .document(deletedWalkID).delete()
     }
 
     private fun DisplayWalks(): ArrayList<Walk> {

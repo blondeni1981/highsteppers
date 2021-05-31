@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.RecyclerView
 import com.hfad.firebaselogin.R
 import com.hfad.firebaselogin.models.Walk
@@ -17,16 +18,16 @@ import kotlinx.android.synthetic.main.walk_row.view.*
 //https://www.andreasjakl.com/recyclerview-kotlin-style-click-listener-android/
 //clickListener parameter is an instance of a Walk
 
+
 class WalksAdapter(private val walks: ArrayList<Walk>, private val clickListener: (Walk) -> Unit):
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    //A ViewHolder represents a single row in the list
     inner class WalkViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             fun bind(a: Walk, clickListener: (Walk) -> Unit) {
                 itemView.rowLocation.text=a.WalkLocation
                 itemView.rowDistance.text=a.WalkDistance
                 itemView.rowName.text=a.WalkName
-
-
                 itemView.rootView.setOnClickListener{clickListener(a)}
             }
     }
@@ -38,12 +39,18 @@ class WalksAdapter(private val walks: ArrayList<Walk>, private val clickListener
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
         (holder as WalkViewHolder).bind(walks[position], clickListener)
-
     }
 
     override fun getItemCount(): Int = walks.size
+
+    fun removeItem(viewHolder:RecyclerView.ViewHolder):String{
+        val tempInt=viewHolder.adapterPosition
+        val tempString=walks[tempInt].WalkID
+        walks.removeAt(viewHolder.adapterPosition)
+        notifyItemRemoved(viewHolder.adapterPosition)
+        return tempString
+    }
 
 
 }
