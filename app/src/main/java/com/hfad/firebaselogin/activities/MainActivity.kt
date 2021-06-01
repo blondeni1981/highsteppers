@@ -1,8 +1,10 @@
 package com.hfad.firebaselogin.activities
 
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.provider.SyncStateContract
 import android.util.Log
 import android.view.View
@@ -68,10 +70,12 @@ class MainActivity : AppCompatActivity() {
             DisplayWalks()
         }
 
-        //Not moving objects, returning false
+        //ItemTouchHelper(ITH) is a companion class to RecyclerView, must provide an ITH Callback
+        //object which dictates the types of touches to respond to and what to do in each case
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-                return false
+                return false //Not moving or rearranging the list, returning false
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
@@ -95,10 +99,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun partItemClicked(partItem: Walk) {
-        Toast.makeText(this, "Clicked, ${partItem}", Toast.LENGTH_LONG).show()
-        var filterID = myWalks.filter { s -> s.WalkID == partItem.WalkID }
-        Toast.makeText(this, "Found Walk ID $filterID", Toast.LENGTH_LONG).show()
+    private fun partItemClicked(oneWalk: Walk) {
+        Toast.makeText(this, "Clicked, $oneWalk", Toast.LENGTH_LONG).show()
+        //This line below is interesting, but not wanted, makes a new list, but can't easily pass in the Intent
+        //var filterID = myWalks.filter { s -> s.WalkID == partItem.WalkID }
+
+        //Create a new Intent and pass it Display Activity, putExtra adds the walk
+        val intent = Intent(this, WalkViewActivity::class.java)
+        intent.putExtra("DISPLAY_WALK", oneWalk)
+        startActivity(intent)
     }
 
     private fun addWalk() {
@@ -123,6 +132,7 @@ class MainActivity : AppCompatActivity() {
                         someHolder = b.id
                         //Rename the WalkID Field to the DocumentID
                         UpdateWalkId(someHolder)
+                        myWalks[0].WalkID=someHolder
                         Log.d("GettingId", someHolder)
 
 
@@ -151,6 +161,7 @@ class MainActivity : AppCompatActivity() {
         CollectionReference.document(a)
                 .collection("Neil Walks")
                 .document(deletedWalkID).delete()
+        DisplayWalks()
     }
 
     private fun DisplayWalks(): ArrayList<Walk> {

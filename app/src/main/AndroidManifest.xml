@@ -9,11 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseLogin">
-        <activity android:name=".activities.DisplayWalksActivity"></activity>
+        <activity android:name=".activities.WalkViewActivity"></activity>
+        <activity android:name=".activities.DisplayWalksActivity" />
         <activity
             android:name=".activities.IntroActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.NoActionBar"></activity>
+            android:theme="@style/Theme.Design.NoActionBar" />
         <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.BaseActivity" />
         <activity
@@ -32,9 +33,7 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/Theme.FirebaseLogin">
-
-    </activity>
+            android:theme="@style/Theme.FirebaseLogin"></activity>
     </application>
 
 </manifest>
