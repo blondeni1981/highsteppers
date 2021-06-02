@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
+//https://www.journaldev.com/37763/android-intent-handling-between-activities-using-kotlin
     private fun partItemClicked(oneWalk: Walk) {
         Toast.makeText(this, "Clicked, $oneWalk", Toast.LENGTH_LONG).show()
         //This line below is interesting, but not wanted, makes a new list, but can't easily pass in the Intent
@@ -133,6 +133,10 @@ class MainActivity : AppCompatActivity() {
                         UpdateWalkId(someHolder) //Call function to change WalkID field of this Walk
                         myWalks[0].WalkID=someHolder //Change WalkID in the local ArrayList
                         Log.d("GettingId", someHolder)
+                        tvWalkName.text.clear()
+                        tvWalkLocation.text.clear()
+                        tvWalkDistance.text.clear()
+
                     }
                 }.addOnFailureListener { e ->
                     Log.e("No ID", "Error Writing Document", e)
@@ -148,7 +152,7 @@ class MainActivity : AppCompatActivity() {
                 .collection(userWalks!!)
                 .document((id)).update("walkID", id)
                 .addOnSuccessListener { success ->
-                    Log.d("Update Worked", "Document updated")
+                    Log.d("Update Worked", "Document updated $success")
                 }.addOnFailureListener { e ->
                     Log.e("No ID", "Error Writing Document", e)
                 }
