@@ -3,7 +3,7 @@ package com.hfad.firebaselogin.models
 import java.time.LocalDateTime
 import android.os.Parcel
 import android.os.Parcelable
-
+//Model class for Walks
 data class Walk(
         var WalkID:String= "",
         var WalkName:String? ="",

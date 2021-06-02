@@ -37,20 +37,8 @@
     <TextView
         android:id="@+id/displayGet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="wrap_content" />
 
-        />
-    <Button
-        android:id="@+id/buttonDisplay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Display Walk"/>
-
-    <TextView
-        android:id="@+id/displayWalk"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Click button to display walk"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

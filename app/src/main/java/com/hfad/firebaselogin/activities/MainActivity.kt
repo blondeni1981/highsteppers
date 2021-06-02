@@ -4,40 +4,37 @@ package com.hfad.firebaselogin.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcelable
-import android.provider.SyncStateContract
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.internal.ContextUtils.getActivity
-import com.google.api.Distribution
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import com.google.firebase.firestore.auth.User
 
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hfad.firebaselogin.R
-import com.hfad.firebaselogin.firebase.FirestoreClass
 import com.hfad.firebaselogin.models.Walk
 import com.hfad.firebaselogin.utils.Constants
 import kotlinx.android.synthetic.main.activity_main.*
-import java.time.LocalDateTime
-import java.time.LocalDateTime.now
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
-    val db = Firebase.firestore
-    var CollectionReference = db.collection(Constants.USERS)
+
+    val db = Firebase.firestore //Instantiate an instance of a FireStore
+    var CollectionReference = db.collection(Constants.USERS) //Points to the users collection
     private lateinit var someHolder: String
     private lateinit var auth: FirebaseAuth
-    val a = FirebaseAuth.getInstance().currentUser!!.uid
+    val loggedInUser = FirebaseAuth.getInstance().currentUser!!.uid //get the currently logged in userID
+    //variable for the user SubCollection walks, making sure it links up with the currently logged in User
+    var userWalks=FirebaseAuth.getInstance().currentUser!!.email+" Walks"
+    //DisplayWalks goes up to FireStore to get the User's Walks, return it in an ArrayList
     var myWalks = DisplayWalks()
+    //Create an instance of WalksAdapter, pass in ArrayList & a CallBack function, for itemClick Events
+    //The WalksAdapter is the RecyclerView Adapter, its the engine that powers the RecyclerView
     private val adapter = WalksAdapter(myWalks) { partItem: Walk ->
         partItemClicked(
                 partItem
@@ -48,28 +45,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //Pointing to RV in XML, then attaching the RV adapter from WalksAdapter class to it
         recyclerView.adapter = adapter
+        //Choosing which layout manager we want, grid/linear
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
 
-        val a = FirebaseAuth.getInstance().currentUser!!.uid
-        auth = FirebaseAuth.getInstance()
-        val query = db.collection(Constants.USERS).document(a)
-        query.get().addOnSuccessListener { document ->
-            if (document != null) {
-                Log.d("Found It", "Document Data: ${document.data}")
-                displayGet.text = document.getString("name")
-            } else {
-                Log.d("Didn't get it", "Failed to get document")
-            }
-        }
-        buttonDatePicker.setOnClickListener {
+//      Below was a read from FireStore for testing purposes
 
+//        val query = db.collection(Constants.USERS).document(a)
+//        query.get().addOnSuccessListener { document ->
+//            if (document != null) {
+//                Log.d("Found It", "Document Data: ${document.data}")
+//                displayGet.text = document.getString("name")
+//            } else {
+//                Log.d("Didn't get it", "Failed to get document")
+//            }
+//        }
+
+        //Button that calls addWalk when clicked
+        buttonDatePicker.setOnClickListener {
             addWalk()
         }
-        buttonDisplay.setOnClickListener {
-            DisplayWalks()
-        }
-
+        //THIS IS FOR SWIPE TO DELETE
         //ItemTouchHelper(ITH) is a companion class to RecyclerView, must provide an ITH Callback
         //object which dictates the types of touches to respond to and what to do in each case
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
@@ -79,23 +76,19 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                //Calls method in WalksAdapter passing the view that  was swiped (to be deleted)
                 var deleted = adapter.removeItem(viewHolder)
                 Log.d("Walk Deleted", "$deleted")
-                deleteWalk(deleted)
+                //The walk is now deleted from  local ArrayList, now it must be deleted from FireStore
+                deleteWalk(deleted) //passing the deleted walkID to FireStore so it knows what to delete
             }
 
         }
+        //Create a variable of type ITH, must pass in the SimpleCall back object we created above
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        //Attach the the ITH variable to our RecyclerView
         itemTouchHelper.attachToRecyclerView(recyclerView)
-//        recyclerView.apply {
-//            //DisplayWalks()
-//            layoutManager = LinearLayoutManager(this@MainActivity)
-//            adapter =  WalksAdapter(myWalks) {partItem:Walk ->
-//                partItemClicked(
-//                        partItem
-//                )
-//            }
-//        }
+
 
     }
 
@@ -106,36 +99,40 @@ class MainActivity : AppCompatActivity() {
 
         //Create a new Intent and pass it Display Activity, putExtra adds the walk
         val intent = Intent(this, WalkViewActivity::class.java)
+        //Parceable must be included in the model (Walk.kt) to allow the serialization of objects
+        //to be passed from one activity to another in Intents
         intent.putExtra("DISPLAY_WALK", oneWalk)
         startActivity(intent)
     }
 
-    private fun addWalk() {
 
-        var newWalkTwo = Walk()
+    private fun addWalk() { //Adds a new walk to FireStore and the local ArrayList
+
+        val newWalkTwo = Walk()
         newWalkTwo.WalkName = tvWalkName.text.toString()
         newWalkTwo.WalkLocation = tvWalkLocation.text.toString()
         newWalkTwo.WalkDistance = tvWalkDistance.text.toString()
         //Arbitrary WalkID, going to change it anyway with UpdateWalkID, match the field with the
         //DocumentID
         newWalkTwo.WalkID = "a"
+
         //Add the Walk to the ArrayList in the first position
         myWalks.add(0, newWalkTwo)
         adapter.notifyItemInserted(0)
 
         //Add the Walk to FireStore
-        CollectionReference.document(a)
-                .collection("Neil Walks").add(newWalkTwo)
+        CollectionReference.document(loggedInUser)
+                //Neil's Walks is a SubCollection in FireStore, containing all of the walks
+
+                .collection(userWalks!!).add(newWalkTwo)
                 .addOnSuccessListener { b ->
                     if (b != null) {
                         //Getting the newly created DocID back, storing it in a temp variable
                         someHolder = b.id
                         //Rename the WalkID Field to the DocumentID
-                        UpdateWalkId(someHolder)
-                        myWalks[0].WalkID=someHolder
+                        UpdateWalkId(someHolder) //Call function to change WalkID field of this Walk
+                        myWalks[0].WalkID=someHolder //Change WalkID in the local ArrayList
                         Log.d("GettingId", someHolder)
-
-
                     }
                 }.addOnFailureListener { e ->
                     Log.e("No ID", "Error Writing Document", e)
@@ -144,11 +141,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    //Renaming WalkID to match the FireStore Document ID, which makes it much easier to
+    //This Function renames WalkID in a Walk to match the FireStore Document ID, which makes it much easier to
     //modify or delete walks later.
-    private fun UpdateWalkId(id: String) {
-        CollectionReference.document(a)
-                .collection("Neil Walks")
+    private fun UpdateWalkId(id: String) { //id parameter is the documentID for the Walk's WalkID we are changing
+        CollectionReference.document(loggedInUser)
+                .collection(userWalks!!)
                 .document((id)).update("walkID", id)
                 .addOnSuccessListener { success ->
                     Log.d("Update Worked", "Document updated")
@@ -158,29 +155,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun deleteWalk(deletedWalkID: String) {
-        CollectionReference.document(a)
-                .collection("Neil Walks")
+        CollectionReference.document(loggedInUser)
+                .collection(userWalks!!)
                 .document(deletedWalkID).delete()
-        DisplayWalks()
+        DisplayWalks() //Get a fresh copy of the Walk ArrayList from FireStore
     }
 
+    //Function gets all the walks for one user from FireStore and returns it in an ArrayList
     private fun DisplayWalks(): ArrayList<Walk> {
         val myWalks = ArrayList<Walk>()
-        val a = FirebaseAuth.getInstance().currentUser!!.uid
-        CollectionReference.document(a)
-                .collection("Neil Walks").get()
-                .addOnSuccessListener { b ->
+        //val a = FirebaseAuth.getInstance().currentUser!!.uid
+        CollectionReference.document(loggedInUser)
+                .collection(userWalks!!).get()
+                .addOnSuccessListener { b -> //A QuerySnapShot, holds the returned Query Result
                     if (b != null) {
-
-                        for (c in b.documents) {
-                            var name = c.toObject<Walk>()
-                            Log.d("Found It", "Document Data: $name and $b")
-                            if (name != null) {
-                                myWalks.add(name)
+                        for (c in b.documents) { //turn each walk into an Object of type Walk
+                            var oneUserWalk = c.toObject<Walk>() //
+                            Log.d("Found It", "Document Data: $oneUserWalk and $b")
+                            if (oneUserWalk != null) {
+                                myWalks.add(oneUserWalk) //Add one walk to the ArrayList
                             }
                         }
-
-                        //displayWalk.text=document.documents.toString()
 
                     } else {
                         Log.d("Didn't get it", "Failed to get document")
@@ -208,3 +203,13 @@ class MainActivity : AppCompatActivity() {
 //        var militaryTime = rightNow.get(Calendar.HOUR_OF_DAY)
 //        Toast.makeText(this, "day-$day, month is $month, year is $year,military time is:$militaryTime ", Toast.LENGTH_LONG).show()
 //    }
+
+//recyclerView.apply {
+//            //DisplayWalks()
+//            layoutManager = LinearLayoutManager(this@MainActivity)
+//            adapter =  WalksAdapter(myWalks) {partItem:Walk ->
+//                partItemClicked(
+//                        partItem
+//                )
+//            }
+//        }
