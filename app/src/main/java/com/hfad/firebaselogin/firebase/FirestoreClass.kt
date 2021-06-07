@@ -1,5 +1,6 @@
 package com.hfad.firebaselogin.firebase
 
+import android.text.Editable
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -8,13 +9,14 @@ import com.hfad.firebaselogin.activities.LoginActivity
 import com.hfad.firebaselogin.activities.MainActivity
 import com.hfad.firebaselogin.activities.SignUpActivity
 import com.hfad.firebaselogin.models.User
+import com.hfad.firebaselogin.models.Walk
 import com.hfad.firebaselogin.utils.Constants
-import kotlin.jvm.internal.Intrinsics
 
 //FireStore class instantiates our Database object so we can define functions that save our data to
 //Firestore Cloud
 class FirestoreClass {
     private val mFireStore = FirebaseFirestore.getInstance() //Instance of the firebase store
+    private val userWalks=FirebaseAuth.getInstance().currentUser!!.email+" Walks"
 
     //this function takes an activity and a user object (defined by our model)
     fun registerUser(activity:SignUpActivity, userInfo: User){
@@ -51,6 +53,22 @@ class FirestoreClass {
                     Log.e("SignInUser", "Error Writing Document",e)
                 }
                 }
+
+//    fun editWalkName(walk:Walk, edit: String){
+//
+//        val tempString = walk.WalkID
+//        Log.d("Edit Caught","Changing ${walk.WalkName} to $edit")
+//
+//        mFireStore.collection(Constants.USERS)
+//                .document(getCurrentUserID())
+//                .collection(userWalks!!)
+//                .document((tempString)).update("walkName", edit)
+//                .addOnSuccessListener { success ->
+//                    Log.d("EditName Worked", "Document updated $success")
+//                }.addOnFailureListener { e ->
+//                    Log.e("No ID", "Error Writing Document", e)
+//                }
+//    }
 
     fun getOneUser(activity: MainActivity){
         mFireStore.collection(Constants.USERS)

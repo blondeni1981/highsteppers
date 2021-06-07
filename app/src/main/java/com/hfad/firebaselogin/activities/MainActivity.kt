@@ -1,10 +1,14 @@
 package com.hfad.firebaselogin.activities
 
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         //Choosing which layout manager we want, grid/linear
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-
+        update(myWalks)
 //      Below was a read from FireStore for testing purposes
 
 //        val query = db.collection(Constants.USERS).document(a)
@@ -90,6 +94,8 @@ class MainActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
 
+
+
     }
 //https://www.journaldev.com/37763/android-intent-handling-between-activities-using-kotlin
     private fun partItemClicked(oneWalk: Walk) {
@@ -99,9 +105,14 @@ class MainActivity : AppCompatActivity() {
 
         //Create a new Intent and pass it Display Activity, putExtra adds the walk
         val intent = Intent(this, WalkViewActivity::class.java)
+        val bundle =Bundle()
+        bundle.putParcelable("key", oneWalk)
+        intent.putExtra("DISPLAY_WALK", bundle)
+        startActivity(intent)
         //Parceable must be included in the model (Walk.kt) to allow the serialization of objects
         //to be passed from one activity to another in Intents
-        intent.putExtra("DISPLAY_WALK", oneWalk)
+
+        intent.putExtra("DISPLAY_WALK", bundle)
         startActivity(intent)
     }
 
@@ -117,6 +128,7 @@ class MainActivity : AppCompatActivity() {
         newWalkTwo.WalkID = "a"
 
         //Add the Walk to the ArrayList in the first position
+        hideKeyboard()
         myWalks.add(0, newWalkTwo)
         adapter.notifyItemInserted(0)
 
@@ -189,6 +201,18 @@ class MainActivity : AppCompatActivity() {
         return myWalks
     }
 
+    fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+    fun Activity.hideKeyboard() {
+        hideKeyboard(currentFocus ?: View(this))
+    }
+
+    fun update(modelList:ArrayList<Walk>){
+        myWalks = modelList
+        adapter!!.notifyDataSetChanged()
+    }
 }
 
 
