@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         //Choosing which layout manager we want, grid/linear
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-        update(myWalks)
+
 //      Below was a read from FireStore for testing purposes
 
 //        val query = db.collection(Constants.USERS).document(a)
