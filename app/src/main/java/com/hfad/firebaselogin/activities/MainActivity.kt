@@ -48,6 +48,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val mybundle = intent.extras
+        var stepCount:String? = mybundle?.getString("SAVED_STEPS")
+        Log.d("Recieved Walk", "$stepCount")
 
         //Pointing to RV in XML, then attaching the RV adapter from WalksAdapter class to it
         recyclerView.adapter = adapter

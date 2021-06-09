@@ -32,7 +32,7 @@ class WalkViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //https://medium.com/@huih1108/android-kotlin-use-parcelable-to-pass-object-to-another-activity-bbc552b07972
-        val mybundle = intent.getBundleExtra("DISPLAY_WALK")
+        val mybundle = intent.getBundleExtra("SAVED_STEPS")
         var myObject= mybundle?.getParcelable<Walk>("key")
         var bundle: Bundle? = intent.extras
         super.onCreate(savedInstanceState)

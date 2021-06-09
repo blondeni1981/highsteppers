@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseLogin">
-        <activity android:name=".activities.WalkViewActivity"></activity>
+        <activity android:name=".activities.StepCounterActivity"></activity>
+        <activity android:name=".activities.WalkViewActivity" />
         <activity android:name=".activities.DisplayWalksActivity" />
         <activity
             android:name=".activities.IntroActivity"
@@ -33,7 +34,7 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/Theme.FirebaseLogin"></activity>
+            android:theme="@style/Theme.FirebaseLogin" />
     </application>
 
 </manifest>
