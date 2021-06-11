@@ -96,7 +96,8 @@ class MainActivity : AppCompatActivity() {
         //Attach the the ITH variable to our RecyclerView
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-
+        // test
+        tvWalkDistance2.text = "" + GlobalClass.Companion.globalSavedSteps
 
 
     }
@@ -125,7 +126,8 @@ class MainActivity : AppCompatActivity() {
         val newWalkTwo = Walk()
         newWalkTwo.WalkName = tvWalkName.text.toString()
         newWalkTwo.WalkLocation = tvWalkLocation.text.toString()
-        newWalkTwo.WalkDistance = tvWalkDistance.text.toString()
+        //newWalkTwo.WalkDistance = tvWalkDistance.text.toString()
+        newWalkTwo.WalkDistance = GlobalClass.Companion.globalSavedSteps.toString()
         //Arbitrary WalkID, going to change it anyway with UpdateWalkID, match the field with the
         //DocumentID
         newWalkTwo.WalkID = "a"

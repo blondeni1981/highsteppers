@@ -1,6 +1,4 @@
-package com.hfad.firebaselogin.activities
-
-
+package com.hfad.firebaselogin
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -19,7 +17,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import com.hfad.firebaselogin.R
+import com.hfad.firebaselogin.activities.GlobalClass
+import com.hfad.firebaselogin.activities.MainActivity
 import kotlinx.android.synthetic.main.activity_step_counter.*
 
 class ForegroundService : Service(), SensorEventListener {

@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.hfad.firebaselogin.ForegroundService
 import com.hfad.firebaselogin.R
 import kotlinx.android.synthetic.main.activity_step_counter.*
 
@@ -33,6 +34,7 @@ class StepCounterActivity : AppCompatActivity(), SensorEventListener {
         supportActionBar!!.setTitle("Step Counter")
 
         // Service Test
+        //ForegroundService.startService(this, "Foreground Service is running...")
         ForegroundService.startService(this, "Foreground Service is running...")
 
         // Step Goal
@@ -40,12 +42,6 @@ class StepCounterActivity : AppCompatActivity(), SensorEventListener {
 
         // Saved Steps
         savedStepOutput.text = "" + GlobalClass.Companion.globalSavedSteps
-
-        saveButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("SAVED_STEPS", GlobalClass.Companion.globalCurrentSteps)
-            startActivity(intent)
-        }
 
     }
 
@@ -132,13 +128,14 @@ class StepCounterActivity : AppCompatActivity(), SensorEventListener {
     // Save Button
     fun saveSteps(view: View) {
 
-        // set the save to the current stepCount
+        //test
         savedSteps = GlobalClass.Companion.globalCurrentSteps
-        //savedStepOutput.text = "" + savedSteps
-
         GlobalClass.Companion.globalSavedSteps = savedSteps
-
         savedStepOutput.text = "" + GlobalClass.Companion.globalSavedSteps
+
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("SAVED_STEPS", GlobalClass.Companion.globalCurrentSteps)
+        startActivity(intent)
 
     }
 
