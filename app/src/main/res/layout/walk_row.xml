@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="#FFFFE8"
-
+    app:cardCornerRadius="8dp"
+    app:cardElevation="3dp"
     xmlns:tools="http://schemas.android.com/tools">
+
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"

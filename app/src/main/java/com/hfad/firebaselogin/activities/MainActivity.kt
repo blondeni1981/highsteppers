@@ -22,6 +22,7 @@ import com.google.firebase.ktx.Firebase
 import com.hfad.firebaselogin.R
 import com.hfad.firebaselogin.models.Walk
 import com.hfad.firebaselogin.utils.Constants
+import com.hfad.firebaselogin.utils.MarginItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -54,6 +55,10 @@ class MainActivity : AppCompatActivity() {
 
         //Pointing to RV in XML, then attaching the RV adapter from WalksAdapter class to it
         recyclerView.adapter = adapter
+        //Item Decoration add margin between ViewHolders in the RecyclerView
+        recyclerView.addItemDecoration(
+            MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.row_card_recyclerlayout))
+        )
         //Choosing which layout manager we want, grid/linear
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
 
@@ -116,8 +121,6 @@ class MainActivity : AppCompatActivity() {
         //Parceable must be included in the model (Walk.kt) to allow the serialization of objects
         //to be passed from one activity to another in Intents
 
-        intent.putExtra("DISPLAY_WALK", bundle)
-        startActivity(intent)
     }
 
 
