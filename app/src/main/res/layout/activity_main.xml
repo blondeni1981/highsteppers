@@ -28,6 +28,12 @@
         android:hint="Location" />
 
     <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
         android:id="@+id/tvWalkDistance2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,5 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_navigation_menu" />
+
+
 
 </LinearLayout>

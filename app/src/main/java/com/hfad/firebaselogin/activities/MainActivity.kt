@@ -1,21 +1,22 @@
 package com.hfad.firebaselogin.activities
 
-
+//Required imports
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -24,8 +25,10 @@ import com.hfad.firebaselogin.models.Walk
 import com.hfad.firebaselogin.utils.Constants
 import com.hfad.firebaselogin.utils.MarginItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.DateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,6 +56,8 @@ class MainActivity : AppCompatActivity() {
         var stepCount:String? = mybundle?.getString("SAVED_STEPS")
         Log.d("Recieved Walk", "$stepCount")
 
+        val currentDateTimeString = DateFormat.getDateTimeInstance().format(Date())
+        dateTextView.setText(currentDateTimeString)
         //Pointing to RV in XML, then attaching the RV adapter from WalksAdapter class to it
         recyclerView.adapter = adapter
         //Item Decoration add margin between ViewHolders in the RecyclerView
