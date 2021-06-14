@@ -38,7 +38,7 @@ class LoginActivity : BaseActivity() {
     fun userLoginSuccess(user:User){
         hideProgressDialog()
         //move this activity and the screen to MainActivity
-        startActivity(Intent(this, StepCounterActivity::class.java))
+        startActivity(Intent(this, HomeActivity::class.java))
         //finish will prevent the user from being able to navigating back to this page
         finish()
        // Toast.makeText(this,"You have successfully logged in", Toast.LENGTH_LONG)
