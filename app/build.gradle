@@ -57,4 +57,5 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-firestore:4.1.0'
     implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
 
+
 }

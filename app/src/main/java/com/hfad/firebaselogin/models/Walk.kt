@@ -1,14 +1,19 @@
 package com.hfad.firebaselogin.models
 
-import java.time.LocalDateTime
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ServerTimestamp
+import java.util.*
+
 //Model class for Walks
 data class Walk(
-        var WalkID:String= "",
-        var WalkName:String? ="",
-        var WalkDistance: String? ="",
-        var WalkLocation:String? =""
+    var WalkID:String= "",
+    var WalkName:String? ="",
+    var WalkDistance: String? ="",
+    var WalkLocation:String? ="",
+    @ServerTimestamp
+    var timestamp: Timestamp? =null
 ): Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString()!!,

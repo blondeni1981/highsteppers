@@ -13,11 +13,11 @@
         android:layout_height="wrap_content"
         android:hint="Walk Name" />
 
-    <EditText
+    <TextView
         android:id="@+id/tvWalkDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:ems="4"
         android:hint="Distance"
         android:inputType="number" />
 
@@ -27,29 +27,33 @@
         android:layout_height="wrap_content"
         android:hint="Location" />
 
-    <TextView
-        android:id="@+id/tvWalkDistance2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0" />
+<!--    <TextView-->
+<!--        android:id="@+id/tvWalkDistance2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="0" />-->
 
     <Button
         android:id="@+id/buttonDatePicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:text="Add Walk" />
 
-    <TextView
-        android:id="@+id/displayGet"
+    <EditText
+        android:id="@+id/editTextTextMultiLine"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recyclerView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent" />-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
