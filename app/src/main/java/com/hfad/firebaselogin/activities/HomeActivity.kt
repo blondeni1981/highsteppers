@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity() {
 
         bttn_new.setOnClickListener {
 
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, WalkViewActivity::class.java))
         }
 
     }

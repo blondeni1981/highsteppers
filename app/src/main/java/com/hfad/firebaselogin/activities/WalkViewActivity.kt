@@ -46,8 +46,8 @@ class WalkViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //https://medium.com/@huih1108/android-kotlin-use-parcelable-to-pass-object-to-another-activity-bbc552b07972
-        val mybundle = intent.getBundleExtra("DISPLAY_WALK")
-        var myObject= mybundle?.getParcelable<Walk>("key")
+//        val mybundle = intent.getBundleExtra("DISPLAY_WALK")
+//        var myObject= mybundle?.getParcelable<Walk>("key")
         //Pointing to RV in XML, then attaching the RV adapter from WalksAdapter class to it
 
 
@@ -64,30 +64,30 @@ class WalkViewActivity : AppCompatActivity() {
 //        bundle?. apply { val thisWalk:Walk? =getParcelable("DISPLAY_WALK")
 //        if(thisWalk != null){
 //            Log.d("Walk Details", "$thisWalk")
-            tv_display_name.text = myObject!!.WalkName
-            tv_display_location.text = myObject.WalkLocation
-            tvDisplayEditLocation.hint = myObject.WalkName
+//            tv_display_name.text = myObject!!.WalkName
+//            tv_display_location.text = myObject.WalkLocation
+//            tvDisplayEditLocation.hint = myObject.WalkName
 
-        fab_edit_name.setOnClickListener {
-            var editName=tvDisplayEditLocation.text
-            CollectionReference.document(loggedInUser)
-                .collection(userWalks)
-                .document((myObject.WalkID!!)).update("walkName",editName.toString())
-                .addOnSuccessListener { success ->
-                    Log.d("Update Worked", "Document updated $success")
-                    hideKeyboard()
-                    Toast.makeText(this,
-                        "Walk updated to $editName",
-                        Toast.LENGTH_LONG).show()
-                        var mainIntent=Intent(this, MainActivity::class.java)
-                        startActivity(mainIntent)
-
-                }.addOnFailureListener { e ->
-                    Log.e("No ID", "Error Writing Document", e)
-                }
-
-
-        }
+//        fab_edit_name.setOnClickListener {
+//            var editName=tvDisplayEditLocation.text
+//            CollectionReference.document(loggedInUser)
+//                .collection(userWalks)
+//                .document((myObject.WalkID!!)).update("walkName",editName.toString())
+//                .addOnSuccessListener { success ->
+//                    Log.d("Update Worked", "Document updated $success")
+//                    hideKeyboard()
+//                    Toast.makeText(this,
+//                        "Walk updated to $editName",
+//                        Toast.LENGTH_LONG).show()
+//                        var mainIntent=Intent(this, MainActivity::class.java)
+//                        startActivity(mainIntent)
+//
+//                }.addOnFailureListener { e ->
+//                    Log.e("No ID", "Error Writing Document", e)
+//                }
+//
+//
+//        }
 
         //THIS IS FOR SWIPE TO DELETE
         //ItemTouchHelper(ITH) is a companion class to RecyclerView, must provide an ITH Callback

@@ -11,6 +11,12 @@ import com.hfad.firebaselogin.R
 import com.hfad.firebaselogin.models.Walk
 
 import kotlinx.android.synthetic.main.walk_row.view.*
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 //In the constructor, the Adapter requires a reference to the data source and a click handler,
 //wherever it is instructed by the RecyclerView to bind a new ViewHolder, it assigns the clickListener
@@ -28,6 +34,7 @@ class WalksAdapter(private val walks: ArrayList<Walk>, private val clickListener
                 itemView.rowLocation.text=a.WalkLocation
                 itemView.rowDistance.text=a.WalkDistance
                 itemView.rowName.text=a.WalkName
+                itemView.rowDate.text= getDateTime(a.timestamp!!)
                 itemView.rootView.setOnClickListener{clickListener(a)}
             }
     }
@@ -50,6 +57,14 @@ class WalksAdapter(private val walks: ArrayList<Walk>, private val clickListener
         walks.removeAt(viewHolder.adapterPosition)
         notifyItemRemoved(viewHolder.adapterPosition)
         return tempString
+    }
+    fun getDateTime(s:com.google.firebase.Timestamp):String?{
+        var newDate=s.toDate()
+        var sdf = SimpleDateFormat("MM-dd-yyyy")
+        return sdf.format(newDate)
+
+
+
     }
 
 
