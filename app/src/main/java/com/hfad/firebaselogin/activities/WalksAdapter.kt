@@ -32,7 +32,7 @@ class WalksAdapter(private val walks: ArrayList<Walk>, private val clickListener
     inner class WalkViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             fun bind(a: Walk, clickListener: (Walk) -> Unit) {
                 itemView.rowLocation.text=a.WalkLocation
-                itemView.rowDistance.text=a.WalkDistance
+                itemView.rowDistance.text=a.WalkDistance+" Steps"
                 itemView.rowName.text=a.WalkName
                 itemView.rowDate.text= getDateTime(a.timestamp!!)
                 itemView.rootView.setOnClickListener{clickListener(a)}
@@ -59,8 +59,8 @@ class WalksAdapter(private val walks: ArrayList<Walk>, private val clickListener
         return tempString
     }
     fun getDateTime(s:com.google.firebase.Timestamp):String?{
-        var newDate=s.toDate()
-        var sdf = SimpleDateFormat("MM-dd-yyyy")
+        val newDate=s.toDate()
+        val sdf = SimpleDateFormat("MM-dd-yyyy")
         return sdf.format(newDate)
 
 

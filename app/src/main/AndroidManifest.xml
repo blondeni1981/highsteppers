@@ -20,7 +20,9 @@
 
         <activity android:name=".activities.StepCounterActivity" />
         <activity android:name=".activities.WalkViewActivity" />
-        <activity android:name=".activities.DisplayWalksActivity" />
+        <activity
+            android:name=".activities.EditWalkActivity"
+            android:label="Edit Walk"/>
         <activity
             android:name=".activities.IntroActivity"
             android:screenOrientation="portrait"

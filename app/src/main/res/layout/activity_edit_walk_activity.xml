@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent">
+
+
+    <TextView
+        android:id="@+id/tv_editRowName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Name" />
+
+
+    <TextView
+        android:id="@+id/tv_editRowDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toEndOf="@+id/rowLocation"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Dist" />
+
+    <TextView
+        android:id="@+id/rowLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tv_editRowName"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Locate" />
+
+    <TextView
+        android:id="@+id/tv_editRowDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+
+        android:padding="8dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tv_editRowDistance"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Date" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+

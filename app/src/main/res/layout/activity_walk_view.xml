@@ -9,45 +9,7 @@
     tools:context=".activities.WalkViewActivity">
 
 
-    <EditText
-        android:id="@+id/tvDisplayEditLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        />
 
-    <TextView
-        android:id="@+id/tv_display_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_display_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/tv_display_name"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_edit_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDisplayEditLocation"
-        app:srcCompat="@drawable/ic_edit" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myRecyclerView"

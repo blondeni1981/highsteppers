@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -24,7 +25,7 @@ import com.hfad.firebaselogin.utils.MarginItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_walk_view.*
 
-class WalkViewActivity : AppCompatActivity() {
+class WalkViewActivity : BaseActivity() {
 
     private val db = Firebase.firestore //Instantiate an instance of a FireStore
     private var CollectionReference = db.collection(Constants.USERS) //Points to the users collection
@@ -34,9 +35,7 @@ class WalkViewActivity : AppCompatActivity() {
     //Create an instance of WalksAdapter, pass in ArrayList & a CallBack function, for itemClick Events
     //The WalksAdapter is the RecyclerView Adapter, its the engine that powers the RecyclerView
     private val adapter = WalksAdapter(myWalks) { partItem: Walk ->
-        partItemClicked(
-            partItem
-        )
+        partItemClicked(partItem)
     }
     //var bundle: Bundle? = intent.extras
 
@@ -138,7 +137,8 @@ class WalkViewActivity : AppCompatActivity() {
         val myWalks = ArrayList<Walk>()
         //val a = FirebaseAuth.getInstance().currentUser!!.uid
         CollectionReference.document(loggedInUser)
-            .collection(userWalks!!).get()
+            //The query below gets all the logged in User's walks from FireStore, ordering by time
+            .collection(userWalks!!).orderBy("timestamp", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { b -> //A QuerySnapShot, holds the returned Query Result
                 if (b != null) {
                     for (c in b.documents) { //turn each walk into an Object of type Walk
@@ -162,14 +162,15 @@ class WalkViewActivity : AppCompatActivity() {
         //This line below is interesting, but not wanted, makes a new list, but can't easily pass in the Intent
         //var filterID = myWalks.filter { s -> s.WalkID == partItem.WalkID }
 
-        //Create a new Intent and pass it Display Activity, putExtra adds the walk
-//        val intent = Intent(this, WalkViewActivity::class.java)
-//        val bundle =Bundle()
-//        bundle.putParcelable("key", oneWalk)
-//        intent.putExtra("DISPLAY_WALK", bundle)
-//        startActivity(intent)
+       // Create a new Intent and pass it Display Activity, putExtra adds the walk
+        val intent = Intent(this, EditWalkActivity::class.java)
+        val bundle =Bundle()
         //Parceable must be included in the model (Walk.kt) to allow the serialization of objects
         //to be passed from one activity to another in Intents
+        bundle.putParcelable("key", oneWalk)
+        intent.putExtra("DISPLAY_WALK", bundle)
+        startActivity(intent)
+
 
     }
 
