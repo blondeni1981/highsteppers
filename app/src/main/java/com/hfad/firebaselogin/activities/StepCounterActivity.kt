@@ -157,7 +157,6 @@ class StepCounterActivity : AppCompatActivity(), SensorEventListener {
         //test
         savedSteps = GlobalClass.Companion.globalCurrentSteps
         GlobalClass.Companion.globalSavedSteps = savedSteps
-        //savedStepOutput.text = "" + GlobalClass.Companion.globalSavedSteps
 
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("SAVED_STEPS", GlobalClass.Companion.globalCurrentSteps)
