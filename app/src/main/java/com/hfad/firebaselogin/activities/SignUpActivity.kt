@@ -21,7 +21,18 @@ class SignUpActivity : BaseActivity() {
         btnSignUpCreate.setOnClickListener {
             registerUser()
         }
+
+        // Display Header
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setTitle("Sign Up Page")
     }
+
+    // Back Button Function
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
     fun userRegistredSuccess() {
         Toast.makeText(
             this,
@@ -47,6 +58,11 @@ class SignUpActivity : BaseActivity() {
                     val registeredEmail = firebaseUser.email!!
                     val user = User(firebaseUser.uid, name, registeredEmail)
                     FirestoreClass().registerUser(this, user)
+
+                    //added user name as global
+                    GlobalClass.Companion.globalUser = name
+
+                    //all done
                     finish()
                 } else {
                     Toast.makeText(

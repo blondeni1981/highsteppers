@@ -22,6 +22,6 @@ class SplashActivity : AppCompatActivity() {
             startActivity(Intent(this, IntroActivity::class.java))
             //finish does not let a user go back to the previous screen
             finish()
-        },3500)
+        },2000)
     }
 }

@@ -80,9 +80,20 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 
+        // Display Header
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setTitle("Add Walk")
+
         //Button that calls addWalk when clicked
         buttonDatePicker.setOnClickListener {
             addWalk()
+        }
+
+        //Button that calls addWalk when clicked
+        buttonReturn.setOnClickListener {
+            val intent = Intent(this, StepCounterActivity::class.java)
+            startActivity(intent)
+            finish()
         }
         //THIS IS FOR SWIPE TO DELETE
         //ItemTouchHelper(ITH) is a companion class to RecyclerView, must provide an ITH Callback
@@ -168,6 +179,9 @@ class MainActivity : AppCompatActivity() {
                         //tvWalkDistance.text.clear()
                         val intent = Intent(this, WalkViewActivity::class.java)
                         startActivity(intent)
+
+                        //reset global
+                        GlobalClass.Companion.globalCurrentSteps = 0
                         finish()
                     }
                 }.addOnFailureListener { e ->
@@ -188,6 +202,12 @@ class MainActivity : AppCompatActivity() {
                 }.addOnFailureListener { e ->
                     Log.e("No ID", "Error Writing Document", e)
                 }
+    }
+
+    // Back Button Function
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 
 //    private fun deleteWalk(deletedWalkID: String) {

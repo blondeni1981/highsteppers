@@ -9,63 +9,61 @@
     app:cardElevation="3dp"
     xmlns:tools="http://schemas.android.com/tools">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#8FE893"
+        android:padding="8dp">
 
 
+        <TextView
+            android:id="@+id/rowName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="30dp"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="16sp"
+            tools:text="Name" />
+
+        <TextView
+            android:id="@+id/rowLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="175dp"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="16sp"
+
+            tools:text="Loc" />
+
+        <TextView
+            android:id="@+id/rowDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rowName"
+            android:padding="8dp"
+            android:textSize="16sp"
+
+            tools:text="Date" />
 
 
-    <TextView
-        android:id="@+id/rowName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:textSize="16sp"
-        android:maxLines="1"
-        tools:text="Name"
-        android:layout_alignParentStart="true"
-        android:layout_marginRight="30dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-
-    <TextView
-        android:id="@+id/rowLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:textSize="16sp"
-        android:maxLines="1"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_marginStart="175dp"
-        android:gravity="center_horizontal"
-
-        tools:text="Loc" />
-
-    <TextView
-        android:id="@+id/rowDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rowName"
-        android:padding="8dp"
-        android:textSize="16sp"
-
-        tools:text="Date"/>
+        <TextView
+            android:id="@+id/rowDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="200dp"
+            android:padding="8dp"
+            android:textSize="16sp"
+            tools:text="Dis" />
 
 
-    <TextView
-        android:id="@+id/rowDistance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:textSize="16sp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="200dp"
-        tools:text="Dis" />
-
-
-
-</RelativeLayout>
+    </RelativeLayout>
 
 
 

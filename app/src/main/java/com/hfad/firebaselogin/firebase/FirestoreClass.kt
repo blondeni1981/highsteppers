@@ -1,15 +1,13 @@
 package com.hfad.firebaselogin.firebase
 
-import android.text.Editable
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.hfad.firebaselogin.activities.LoginActivity
+import com.hfad.firebaselogin.activities.IntroActivity
 import com.hfad.firebaselogin.activities.MainActivity
 import com.hfad.firebaselogin.activities.SignUpActivity
 import com.hfad.firebaselogin.models.User
-import com.hfad.firebaselogin.models.Walk
 import com.hfad.firebaselogin.utils.Constants
 
 //FireStore class instantiates our Database object so we can define functions that save our data to
@@ -38,7 +36,7 @@ class FirestoreClass {
         return FirebaseAuth.getInstance().currentUser!!.uid
     }
 
-    fun signInUser(activity: LoginActivity){
+    fun signInUser(activity: IntroActivity){
         mFireStore.collection(Constants.USERS)
                 //Pass in the current user, the one who is logged in
                 .document(getCurrentUserID())

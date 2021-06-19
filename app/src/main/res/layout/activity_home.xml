@@ -1,36 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    tools:context=".activities.HomeActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="Welcome"
-        android:textColor="@color/secondary_text_color"
-        android:textSize="34sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="Lets Get Started!!!"
-        android:textColor="@color/secondary_text_color"
-        android:textSize="@dimen/lets_get_started_text_size" />
+    tools:context="activities.StepCounterActivity">
 
     <Button
         android:id="@+id/bttn_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="33dp"
         android:background="@drawable/shape_button_rounded"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
@@ -38,16 +21,20 @@
         android:paddingBottom="8dp"
         android:text="New Walk"
         android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/bttn_new"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <Button
         android:id="@+id/bttn_new"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="34dp"
         android:background="@drawable/shape_button_rounded"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
@@ -55,6 +42,76 @@
         android:paddingBottom="8dp"
         android:text="View Walks"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/bttn_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bttn_view" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/bttn_settings"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="19dp"
+        android:background="@drawable/shape_button_rounded"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="Settings"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/bttn_logout"
+        app:layout_constraintEnd_toStartOf="@+id/bttn_logout"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="51dp"
+        android:text="Lets Get Started!!!"
+        android:textColor="@color/secondary_text_color"
+        android:textSize="@dimen/lets_get_started_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/bttn_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeMessage" />
+
+    <Button
+        android:id="@+id/bttn_logout"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="183dp"
+        android:background="@drawable/shape_button_rounded"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="Log Out"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bttn_settings"
+        app:layout_constraintTop_toBottomOf="@+id/bttn_new" />
+
+    <TextView
+        android:id="@+id/welcomeMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginBottom="1dp"
+        android:text="Welcome"
+        android:textColor="@color/secondary_text_color"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView10"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

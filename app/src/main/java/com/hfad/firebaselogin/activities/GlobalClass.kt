@@ -5,6 +5,8 @@ import android.app.Application
 class GlobalClass: Application() {
     object Companion {
         var globalSavedSteps = 0
-        var globalCurrentSteps = -1
+        var globalCurrentSteps = 0
+        var globalUser = ""
+        var globalStepGoal = 50
     }
 }

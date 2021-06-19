@@ -19,6 +19,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.hfad.firebaselogin.activities.GlobalClass
 import com.hfad.firebaselogin.activities.MainActivity
+import com.hfad.firebaselogin.activities.StepCounterActivity
 import kotlinx.android.synthetic.main.activity_step_counter.*
 
 class ForegroundService : Service(), SensorEventListener {
@@ -131,6 +132,7 @@ class ForegroundService : Service(), SensorEventListener {
                 startForeground(1, notification)
                 //stopSelf();
 
+                // display the steps
 
 
                 // display the steps

@@ -49,10 +49,12 @@ class WalkViewActivity : AppCompatActivity() {
 //        val mybundle = intent.getBundleExtra("DISPLAY_WALK")
 //        var myObject= mybundle?.getParcelable<Walk>("key")
         //Pointing to RV in XML, then attaching the RV adapter from WalksAdapter class to it
-
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_walk_view)
+
+        // Display Header
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setTitle("Walk History")
 
         myRecyclerView.adapter = adapter
         //Item Decoration add margin between ViewHolders in the RecyclerView
@@ -156,6 +158,7 @@ class WalkViewActivity : AppCompatActivity() {
 
         return myWalks
     }
+
     //https://www.journaldev.com/37763/android-intent-handling-between-activities-using-kotlin
     private fun partItemClicked(oneWalk: Walk) {
         Toast.makeText(this, "Clicked, $oneWalk", Toast.LENGTH_LONG).show()
@@ -170,17 +173,11 @@ class WalkViewActivity : AppCompatActivity() {
 //        startActivity(intent)
         //Parceable must be included in the model (Walk.kt) to allow the serialization of objects
         //to be passed from one activity to another in Intents
-
     }
 
-
-
-
-
-
-
-
-
-
-
+    // Back Button Function
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
 }

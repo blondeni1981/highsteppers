@@ -1,64 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activities.MainActivity">
+    tools:context="activities.StepCounterActivity">
 
-    <EditText
-        android:id="@+id/tvWalkName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Walk Name" />
 
-    <TextView
-        android:id="@+id/tvWalkDistance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="4"
-        android:hint="Distance"
-        android:inputType="number" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/tvWalkDistance2"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="0" />-->
+
+
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/recyclerView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent" />-->
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/editTextTextMultiLine"-->
+    <!--        android:layout_width="411dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:ems="10"-->
+    <!--        android:gravity="start|top"-->
+    <!--        android:inputType="textMultiLine"-->
+    <!--        tools:layout_editor_absoluteY="252dp" />-->
+
+    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+    <!--        android:id="@+id/bottom_navigation"-->
+    <!--        android:layout_width="411dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:menu="@menu/bottom_navigation_menu"-->
+    <!--        tools:layout_editor_absoluteY="297dp" />-->
+
+    <Button
+        android:id="@+id/buttonDatePicker"
+        android:layout_width="336dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="27dp"
+        android:text="Add Walk"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWalkName" />
+
+    <Button
+        android:id="@+id/buttonReturn"
+        android:layout_width="336dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:text="Return to Step Counter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDatePicker" />
 
     <EditText
         android:id="@+id/tvWalkLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Location" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/tvWalkDistance2"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="0" />-->
-
-    <Button
-        android:id="@+id/buttonDatePicker"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Walk" />
+        android:hint="Location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
-        android:layout_width="match_parent"
+        android:id="@+id/tvWalkName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine" />
+        android:hint="Walk Name"
+        app:layout_constraintEnd_toStartOf="@+id/tvWalkLocation"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
+    <TextView
+        android:id="@+id/tvWalkDistance"
+        android:layout_width="90dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="8dp"
+        android:ems="4"
+        android:hint="Distance"
+        android:inputType="number"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWalkLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.584"
+        app:layout_constraintStart_toEndOf="@+id/tvWalkLocation"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="347dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="32dp"
+        android:text="Now that you have completed a walk, you are able to set it's Name and Location!"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/recyclerView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu="@menu/bottom_navigation_menu" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
