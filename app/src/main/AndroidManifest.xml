@@ -25,17 +25,17 @@
         <activity
             android:name=".activities.IntroActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.NoActionBar" />
+            />
         <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.BaseActivity" />
         <activity
             android:name=".activities.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.NoActionBar" />
+            />
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.NoActionBar">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,7 +44,7 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/Theme.FirebaseLogin" />
+            />
     </application>
 
 </manifest>

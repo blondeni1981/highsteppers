@@ -6,88 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".activities.SignUpActivity">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="327dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="39dp"
-        android:layout_marginBottom="19dp"
-        android:text="Thanks for creating an account!"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
+    <EditText
+        android:id="@+id/textSignUp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="Enter Your First Name"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/textSignUp"
-        android:layout_width="385dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="18dp"
-        android:ems="10"
-        android:hint="Enter Your First Name"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/textSignIn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <EditText
         android:id="@+id/textSignIn"
-        android:layout_width="387dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="17dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="Enter Your Email"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/textCreatePassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textSignUp" />
+
+    <EditText
+        android:id="@+id/textCreatePassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="Create a Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSignIn" />
 
     <Button
         android:id="@+id/btnSignUpCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="143dp"
+        android:layout_marginTop="16dp"
         android:text="Sign Up"
-        app:cornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCreatePassword" />
-
-    <EditText
-        android:id="@+id/textCreatePassword"
-        android:layout_width="388dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginBottom="16dp"
-        android:ems="10"
-        android:hint="Create a Password"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/btnSignUpCreate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSignIn" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="364dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginEnd="27dp"
-        android:layout_marginBottom="54dp"
-        android:text="Please add your Name, Email, and Password below. These wil be used to store personal wakling data."
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textSignUp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
