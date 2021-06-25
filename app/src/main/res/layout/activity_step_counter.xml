@@ -26,6 +26,7 @@
         android:layout_marginBottom="12dp"
         android:onClick="addStep"
         android:text="Step"
+        app:cornerRadius="8dp"
         app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toStartOf="@+id/resetButton"
         app:layout_constraintHorizontal_bias="0.0"
@@ -39,6 +40,7 @@
         android:layout_marginBottom="12dp"
         android:onClick="resetSteps"
         android:text="Reset"
+        app:cornerRadius="8dp"
         app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -49,6 +51,7 @@
         android:layout_marginBottom="48dp"
         android:onClick="saveSteps"
         android:text="Complete Walk"
+        app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"

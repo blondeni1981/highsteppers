@@ -33,10 +33,12 @@
         android:backgroundTint="@color/purple_500"
         android:text="SIGN IN"
         android:textColor="#FFFFFF"
+        app:cornerRadius="8dp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textPassword2" />
+
 
     <Button
         android:id="@+id/btnIntroSignUp"

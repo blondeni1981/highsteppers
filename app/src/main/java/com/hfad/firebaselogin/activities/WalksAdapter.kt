@@ -69,37 +69,4 @@ class WalksAdapter(private val walks: ArrayList<Walk>, private val clickListener
 
 
 }
-//class WalksAdapter(private val walks: ArrayList<Walk>):
-//        RecyclerView.Adapter<WalksAdapter.ViewHolder>() {
-//
-//    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//
-//        val location: TextView = itemView.rowLocation
-//        val distance: TextView = itemView.rowDistance
-//        val name: TextView = itemView.rowName
-//
-//
-//
-//
-//
-////        override fun onClick(itemView: View) {
-////            Log.d("RecyclerView", "Click")
-////        }
-//    }
-//
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        val view = LayoutInflater.from(parent.context).inflate(R.layout.walk_row, parent, false)
-//        return ViewHolder(view)
-//    }
-//
-//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.location.text = walks[position].WalkName
-//        holder.distance.text = walks[position].WalkDistance
-//        holder.name.text = walks[position].WalkLocation
-//    }
-//
-//    override fun getItemCount(): Int = walks.size
-//
-//
-//}
+

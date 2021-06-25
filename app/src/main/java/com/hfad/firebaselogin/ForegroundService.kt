@@ -18,16 +18,17 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.hfad.firebaselogin.activities.GlobalClass
+import com.hfad.firebaselogin.activities.HomeActivity
 import com.hfad.firebaselogin.activities.MainActivity
 import com.hfad.firebaselogin.activities.StepCounterActivity
 import kotlinx.android.synthetic.main.activity_step_counter.*
 
 class ForegroundService : Service(), SensorEventListener {
 
-    // declare vals
+    // Declare Variables
     private val CHANNEL_ID = "ForegroundService Kotlin"
 
-    //test vals
+    // Test Variables
     var running = false
     var sensorManager: SensorManager? = null
     var stepCount = -1
@@ -48,10 +49,10 @@ class ForegroundService : Service(), SensorEventListener {
         }
     }
 
+    // Do heavy work on a background thread
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        //do heavy work on a background thread
 
-        //test
+        // Sensor Setup
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         running = true
         var stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
@@ -62,21 +63,17 @@ class ForegroundService : Service(), SensorEventListener {
             sensorManager?.registerListener(this,stepSensor, SensorManager.SENSOR_STATUS_ACCURACY_HIGH)
         }
 
-
         val input = intent?.getStringExtra("inputExtra")
-
         createNotificationChannel()
-
-        val notificationIntent = Intent(this, MainActivity::class.java)
-
+        val notificationIntent = Intent(this, StepCounterActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             this,
             0, notificationIntent, 0
         )
 
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("Highsteppers App")
-            .setContentText("" + GlobalClass.Companion.globalCurrentSteps)
+            .setContentTitle("Current Walk:     " + GlobalClass.Companion.globalCurrentSteps + " Steps.")
+            //.setContentText("" + GlobalClass.Companion.globalCurrentSteps)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentIntent(pendingIntent)
             .build()
@@ -109,41 +106,33 @@ class ForegroundService : Service(), SensorEventListener {
         if (running){
             if (event != null) {
 
-                //TODO rework the sensor logic so that the steps start at 0, but the saved step is not ahead of the display.
-
-                // increment the stepCount
-                //stepCount++
-
-                GlobalClass.Companion.globalCurrentSteps++
-
-                // hack job
-                val notificationIntent = Intent(this, MainActivity::class.java)
+                // Create notifications
+                val notificationIntent = Intent(this, HomeActivity::class.java)
 
                 val pendingIntent = PendingIntent.getActivity(
                     this,
                     0, notificationIntent, 0
                 )
+
+                // Set up notification
                 val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setContentTitle("Highsteppers App")
-                    .setContentText("" + GlobalClass.Companion.globalCurrentSteps)
+                    .setContentTitle("Current Walk:     " + GlobalClass.Companion.globalCurrentSteps + " Steps.")
+                    //.setContentText("" + GlobalClass.Companion.globalCurrentSteps)
                     .setSmallIcon(R.drawable.ic_notification)
                     .setContentIntent(pendingIntent)
                     .build()
                 startForeground(1, notification)
                 //stopSelf();
 
-                // display the steps
+                // increment the Foreground
+                GlobalClass.Companion.globalCurrentSteps++
 
-
-                // display the steps
-                //stepOutput.text = "" + GlobalClass.Companion.globalCurrentSteps
-
-                // check goal
-                //if (GlobalClass.Companion.globalCurrentSteps >= stepGoal)
-                //{
-                //    stepGoalOutput.text = "Complete!"
-                //}
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        running = false;
     }
 }

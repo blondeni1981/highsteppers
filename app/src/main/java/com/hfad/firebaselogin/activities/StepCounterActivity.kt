@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.hfad.firebaselogin.ForegroundService
 import com.hfad.firebaselogin.R
-import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import kotlinx.android.synthetic.main.activity_step_counter.*
 
 class StepCounterActivity : AppCompatActivity(), SensorEventListener {
@@ -20,7 +19,6 @@ class StepCounterActivity : AppCompatActivity(), SensorEventListener {
     //declare vars
     var running = false
     var sensorManager:SensorManager? = null
-    var stepCount = -1
     var savedSteps = 0
     var stepGoal = GlobalClass.Companion.globalStepGoal
 
@@ -35,20 +33,11 @@ class StepCounterActivity : AppCompatActivity(), SensorEventListener {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setTitle("Step Counter")
 
-        // Service Test
-        //ForegroundService.startService(this, "Foreground Service is running...")
+        // Start the Foreground
         ForegroundService.startService(this, "Foreground Service is running...")
 
         // Step Goal
-        stepGoalOutput.text = "" + stepGoal
-
-        // Saved Steps
-        //savedStepOutput.text = "" + GlobalClass.Companion.globalSavedSteps
-
-        //val circularProgressBar = findViewById<CircularProgressBar>(R.id.walkProgressBar)
-        //circularProgressBar.apply {
-        //   progressMax = 20f
-        //}
+        stepGoalOutput.text = "" + GlobalClass.Companion.globalStepGoal
 
     }
 
@@ -67,14 +56,17 @@ class StepCounterActivity : AppCompatActivity(), SensorEventListener {
         else{
             sensorManager?.registerListener(this,stepSensor, SensorManager.SENSOR_STATUS_ACCURACY_HIGH)
         }
+
+        // Start the Foreground
+        ForegroundService.startService(this, "Foreground Service is running...")
     }
 
-    // On Pause -- No functionality
+    // On Pause
     override fun onPause() {
         super.onPause()
-        //reset
-        GlobalClass.Companion.globalCurrentSteps--
-        //running = false
+
+
+        running = false
         sensorManager?.unregisterListener(this)
     }
 
@@ -88,21 +80,18 @@ class StepCounterActivity : AppCompatActivity(), SensorEventListener {
         if (running){
             if (event != null) {
 
-                //TODO rework the sensor logic so that the steps start at 0, but the saved step is not ahead of the display.
 
-                // increment the stepCount
-                //stepCount++
-
-                //GlobalClass.Companion.globalCurrentSteps++
-
-
-                // display the steps
-                stepOutput.text = "" + GlobalClass.Companion.globalCurrentSteps
+                if(GlobalClass.Companion.globalCurrentSteps == -1 || GlobalClass.Companion.globalCurrentSteps == 0){
+                    stepOutput.text = "0"
+                }
+                else{
+                    stepOutput.text = "" + GlobalClass.Companion.globalCurrentSteps
+                }
 
                 // check goal
                 if (GlobalClass.Companion.globalCurrentSteps >= stepGoal)
                 {
-                    stepGoalOutput.text = "Complete!"
+                    stepGoalOutput.text = "Done!"
                 }
 
                 //circular bar
@@ -127,21 +116,26 @@ class StepCounterActivity : AppCompatActivity(), SensorEventListener {
     // Reset Button
     fun resetSteps(view: View) {
 
-        // Reset test
-        ForegroundService.stopService(this)
-
-
         // Reset the text and stepCounter var to 0
-        GlobalClass.Companion.globalCurrentSteps = 0
-        stepOutput.text = "" + GlobalClass.Companion.globalCurrentSteps
+        GlobalClass.Companion.globalCurrentSteps = -1
 
+        // Stop Foreground
+        //ForegroundService.stopService(this)
+        val myService = Intent(this@StepCounterActivity, ForegroundService::class.java)
+        stopService(myService)
+
+
+        // Start Foreground
+        val myService2 = Intent(this@StepCounterActivity, ForegroundService::class.java)
+        startService(myService2)
+
+        //stepOutput.text = "" + GlobalClass.Companion.globalCurrentSteps
+        stepOutput.text = "" + 0
 
         // Reset the text and stepGoal var to 0
-        stepGoalOutput.text = "" + stepGoal
+        stepGoalOutput.text = "" + GlobalClass.Companion.globalStepGoal
 
-        // Reset test
-        //ForegroundService.startService(this, "Step Counter Restarted...")
-
+        // Reset Bar
         walkProgressBar.apply {
             setProgressWithAnimation(GlobalClass.Companion.globalCurrentSteps.toFloat())
             progressMax = stepGoal.toFloat()
@@ -151,21 +145,33 @@ class StepCounterActivity : AppCompatActivity(), SensorEventListener {
     // Save Button
     fun saveSteps(view: View) {
 
-        // Stop test
-        ForegroundService.stopService(this)
+        // Stop Foreground
+        val myService = Intent(this@StepCounterActivity, ForegroundService::class.java)
+        stopService(myService)
 
-        //test
+        // Save Steps
         savedSteps = GlobalClass.Companion.globalCurrentSteps
         GlobalClass.Companion.globalSavedSteps = savedSteps
 
+        // Move to new page using intent
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("SAVED_STEPS", GlobalClass.Companion.globalCurrentSteps)
         startActivity(intent)
+
+        // Calorie Count
+        if(GlobalClass.Companion.globalHeight >= 72){
+            GlobalClass.Companion.globalCalories = (GlobalClass.Companion.globalCurrentSteps * 0.047)
+        }
+        else{
+            GlobalClass.Companion.globalCalories = (GlobalClass.Companion.globalCurrentSteps * 0.045)
+        }
 
     }
 
     //Mock Step button
     fun addStep(view: View) {
+
+        // Increment step
         GlobalClass.Companion.globalCurrentSteps++
 
         // display the steps
@@ -174,9 +180,10 @@ class StepCounterActivity : AppCompatActivity(), SensorEventListener {
         // check goal
         if (GlobalClass.Companion.globalCurrentSteps >= stepGoal)
         {
-            stepGoalOutput.text = "Complete!"
+            stepGoalOutput.text = "Done!"
         }
 
+        //update bar
         walkProgressBar.apply {
             setProgressWithAnimation(GlobalClass.Companion.globalCurrentSteps.toFloat())
             progressMax = stepGoal.toFloat()

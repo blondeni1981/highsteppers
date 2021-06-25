@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
         // test
         tvWalkDistance.text = "" + GlobalClass.Companion.globalSavedSteps +" Steps"
 
-
+        calorieOutput.text = ""+GlobalClass.Companion.globalCalories +" Calories Burned!"
     }
 //https://www.journaldev.com/37763/android-intent-handling-between-activities-using-kotlin
 //    private fun partItemClicked(oneWalk: Walk) {
